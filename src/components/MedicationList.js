@@ -26,7 +26,7 @@ return (
                 </tr>
             ) : (
                 medications.map(medication => (
-                    <tr key={medication.pk}>
+                    <tr key={medication.id}>
                         <td>{medication.name}</td>
                         <td>{medication.classification}</td>
                         <td>{medication.intention}</td>
@@ -41,7 +41,7 @@ return (
                                 resetState={resetState}
                             />
                             <ConfirmDeleteModal 
-                                id={medication.pk}
+                                id={medication.id}
                                 resetState={resetState}
                             />
 

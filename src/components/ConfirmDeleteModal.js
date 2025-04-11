@@ -7,13 +7,6 @@ import { API_URL } from '../constants'
 
 const ConfirmDeleteModal = ({id, resetState}) =>{
   const [modal, setModal] = useState(false)
-  const [medicationId, setMedicationId] = useState({
-    id: undefined,
-  })
-
-  useEffect(() => {
-    setMedicationId({id})
-  })[medicationId]
 
   const toggle = () => setModal(prevModal => !prevModal)
 
@@ -38,7 +31,7 @@ const ConfirmDeleteModal = ({id, resetState}) =>{
           <Button type='button' onClick={toggle}>
             Cancel
           </Button>
-          <Button type='button' color='primary' onClick={() => deleteMedication}>
+          <Button type='button' color='primary' onClick={deleteMedication}>
             Yes
           </Button>
         </ModalFooter>
