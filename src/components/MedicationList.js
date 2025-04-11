@@ -1,5 +1,6 @@
 import { Table } from 'reactstrap';
 import NewMedicationModal from './NewMedicationModal';
+import ConfirmDeleteModal from './ConfirmDeleteModal';
 
 const MedicationList = ({ medications, resetState }) => {
 return (
@@ -37,6 +38,10 @@ return (
                             <NewMedicationModal
                                 create={false}
                                 medication={medication}
+                                resetState={resetState}
+                            />
+                            <ConfirmDeleteModal 
+                                id={medication.pk}
                                 resetState={resetState}
                             />
 
