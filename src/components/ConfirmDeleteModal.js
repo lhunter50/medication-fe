@@ -6,6 +6,7 @@ import axios from 'axios'
 import { API_URL } from '../constants'
 
 const ConfirmDeleteModal = ({id, resetState}) =>{
+  // I originally thought I had to use state to maintain the ID but I don't have to as it is directly passed down from parent component
   const [modal, setModal] = useState(false)
 
   const toggle = () => setModal(prevModal => !prevModal)
