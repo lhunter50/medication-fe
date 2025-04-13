@@ -4,6 +4,7 @@ import ConfirmDeleteModal from './ConfirmDeleteModal';
 import {Medication} from '../models/Medication'
 import React from 'react';
 
+// We are typing what the component expects for props. We pass down from parent component.
 interface MedicationListProps {
     medications: Medication[];
     resetState: () => void;
