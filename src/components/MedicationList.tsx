@@ -1,8 +1,16 @@
 import { Table } from 'reactstrap';
 import NewMedicationModal from './NewMedicationModal';
 import ConfirmDeleteModal from './ConfirmDeleteModal';
+import {Medication} from '../models/Medication'
+import React from 'react';
 
-const MedicationList = ({ medications, resetState }) => {
+interface MedicationListProps {
+    medications: Medication[];
+    resetState: () => void;
+}
+
+// We changed from a const to function, we don't want to use React.FC, we also don't want to have to call return type JSX.Element.
+function MedicationList({ medications, resetState }: MedicationListProps) {
 return (
     <Table dark>
         <thead>
@@ -20,7 +28,7 @@ return (
         <tbody>
             {!medications || medications.length <= 0 ? (
                 <tr>
-                    <td colSpan="6" align="center">
+                    <td colSpan={8} align="center">
                         <b>Oops, no medication here yet</b>
                     </td>
                 </tr>
