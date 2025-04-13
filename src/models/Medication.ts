@@ -1,4 +1,4 @@
-// Defining the Medication type based on my data structure.
+// Defining the Medication type based on my data structure. Also so we don't use redundent code we just import this when we need it.
 export interface Medication {
   id: number;
   name: string;

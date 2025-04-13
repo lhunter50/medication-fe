@@ -54,7 +54,7 @@ const Home = () => {
             </Row>
             <Row>
                 <Col>
-                    <NewMedicationModal create={true} resetState={resetState} medication={medications}/>
+                    <NewMedicationModal create={true} resetState={resetState} />
                 </Col>
             </Row>
         </Container>
