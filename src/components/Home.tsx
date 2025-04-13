@@ -4,23 +4,41 @@ import MedicationList from './MedicationList';
 import NewMedicationModal from './NewMedicationModal';
 import axios from 'axios';
 import { API_URL } from '../constants';
+import React from 'react';
+
+// Defining the Medication type based on my data structure.
+interface Medication {
+    id: number;
+    name: string;
+    classification: string;
+    intention: string;
+    implications: string;
+    dose: string;
+    route: string;
+    frequency: string;
+    [key:string]: any;
+}   
 
 const Home = () => {
-    const [medications, setMedications] = useState([]);
-    const [loading, setLoading] = useState([])
+
+    // Set state for our medication, using our Medication type
+    const [medications, setMedications ] = useState<Medication[]>([])
+
+    // Set state for loading using boolean type, we set it to false originally and update the state when we are actually loading.
+    const [loading, setLoading] = useState<boolean>(false)
 
     const getMedications = () => {
-        setLoading(true);  // Start loading
-        axios.get(API_URL)
-            .then((res) => {
-                setMedications(res.data);  // Set medication data
-                setLoading(false);  // Stop loading
-            })
-            .catch((err) => {
-                console.error('Failed to fetch meds', err);
-                setLoading(false);  // Stop loading even if there's an error
-            });
-    };
+        setLoading(true);
+        axios.get<Medication[]>(API_URL) // We are telling the response to expect an array of our Medication objects!
+        .then((res) => {
+            setMedications(res.data) // update the state of medications with all of our Medication objects
+            setLoading(false) // change the state back to false because we are done loading.
+        })
+        .catch((err) => {
+            console.error('Failed to fetch medication', err)
+            setLoading(false)
+        })
+    }
 
     const resetState = () => {
         getMedications();
@@ -48,7 +66,6 @@ const Home = () => {
             </Row>
             <Row>
                 <Col>
-                    {/* Create New Medication Modal */}
                     <NewMedicationModal create={true} resetState={resetState} medication={medications}/>
                 </Col>
             </Row>
