@@ -1,8 +1,15 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import NewMedicationForm from "./NewMedicationForm";
+import { Medication } from "../models/Medication";
 
-const NewMedicationModal = ({ create, resetState, medication }) => {
+interface NewMedicationModalProps {
+    medication?: Medication | null; //We aren't passing down an array of medications, just a single one.
+    resetState: () => void;
+    create: boolean;
+}
+
+const NewMedicationModal = ({ create, resetState, medication } : NewMedicationModalProps) => {
     // useState to manage modal open/close state
     const [modal, setModal] = useState(false);
     const [isLoading, setIsLoading] = useState(true)
@@ -30,12 +37,9 @@ const NewMedicationModal = ({ create, resetState, medication }) => {
             setIsLoading(false)
         }
         console.log('Medication prop:', medication);
-    }, [medication] );
+    }, [medication, create] );
 
-    // Handle case when medication is null (for creating new medication)
-    const medicationData = medication || [];
-
-    if(isLoading || !medication) {
+    if(isLoading || (!create && !medication)) {
         return <div>Loading...</div>
     }
 

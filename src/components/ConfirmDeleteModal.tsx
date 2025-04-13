@@ -1,11 +1,16 @@
-import { Fragment, useState,  } from 'react'
+import React, { Fragment, useState,  } from 'react'
 import { Modal, ModalHeader, ModalFooter, Button } from 'reactstrap'
 
 import axios from 'axios'
-
 import { API_URL } from '../constants'
 
-const ConfirmDeleteModal = ({id, resetState}) =>{
+interface ConfirmDeleteModalProps {
+  id: number; // we have the ID coming in from the parent, so we just have to give it a type.
+  name: string; // would be a good idea to have the name of the medication the user is going to delete
+  resetState: () => void;
+}
+
+const ConfirmDeleteModal = ({id, name, resetState} : ConfirmDeleteModalProps) =>{
   // I originally thought I had to use state to maintain the ID but I don't have to as it is directly passed down from parent component
   const [modal, setModal] = useState(false)
 
@@ -25,7 +30,7 @@ const ConfirmDeleteModal = ({id, resetState}) =>{
       </Button>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>
-          Do you really want to delete this medication?
+          Do you really want to delete <strong>{name}</strong>?
         </ModalHeader>
 
         <ModalFooter>
