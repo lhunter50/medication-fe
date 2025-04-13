@@ -1,5 +1,6 @@
 import { Table } from 'reactstrap';
 import NewMedicationModal from './NewMedicationModal';
+import ConfirmDeleteModal from './ConfirmDeleteModal';
 
 const MedicationList = ({ medications, resetState }) => {
 return (
@@ -25,7 +26,7 @@ return (
                 </tr>
             ) : (
                 medications.map(medication => (
-                    <tr key={medication.pk}>
+                    <tr key={medication.id}>
                         <td>{medication.name}</td>
                         <td>{medication.classification}</td>
                         <td>{medication.intention}</td>
@@ -37,6 +38,10 @@ return (
                             <NewMedicationModal
                                 create={false}
                                 medication={medication}
+                                resetState={resetState}
+                            />
+                            <ConfirmDeleteModal 
+                                id={medication.id}
                                 resetState={resetState}
                             />
 
