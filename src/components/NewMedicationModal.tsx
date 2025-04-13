@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import NewMedicationForm from "./NewMedicationForm";
 import { Medication } from "../models/Medication";
@@ -36,7 +36,6 @@ const NewMedicationModal = ({ create, resetState, medication } : NewMedicationMo
         if (medication !== null) {
             setIsLoading(false)
         }
-        console.log('Medication prop:', medication);
     }, [medication, create] );
 
     if(isLoading || (!create && !medication)) {

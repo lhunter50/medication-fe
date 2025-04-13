@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Col, Container, Row, Spinner } from 'reactstrap';
 import MedicationList from './MedicationList';
 import NewMedicationModal from './NewMedicationModal';

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
+import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import axios from 'axios';
 import { API_URL } from '../constants';
@@ -14,6 +14,7 @@ interface NewMedicationFormState {
   id: number | null;
   name: string;
   classification: string;
+  intention: string;
   implications: string;
   dose: string;
   route: string;
@@ -26,6 +27,7 @@ const NewMedicationForm = ({ medication, resetState, toggle } : NewMedicationFor
       id: null,
       name: '',
       classification: '',
+      intention: '',
       implications: '',
       dose: '',
       route: '',
@@ -35,8 +37,8 @@ const NewMedicationForm = ({ medication, resetState, toggle } : NewMedicationFor
     // Initialize form data if editing a medication
     useEffect(() => {
       if (medication) {
-        const { id, name, classification, implications, dose, route, frequency } = medication;
-        setFormData({ id, name, classification, implications, dose, route, frequency });
+        const { id, name, classification, intention, implications, dose, route, frequency } = medication;
+        setFormData({ id, name, classification, intention, implications, dose, route, frequency });
       }
     }, [medication]);
 
@@ -122,6 +124,17 @@ const NewMedicationForm = ({ medication, resetState, toggle } : NewMedicationFor
             name="classification"
             onChange={onChange}
             value={defaultIfEmpty(formData.classification)}
+          />
+        </FormGroup>
+        
+        <FormGroup>
+          <Label for="intention">Intention:</Label>
+          <Input
+            id='intention'
+            type="text"
+            name="intention"
+            onChange={onChange}
+            value={defaultIfEmpty(formData.intention)}
           />
         </FormGroup>
 
