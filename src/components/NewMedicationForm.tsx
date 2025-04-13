@@ -1,12 +1,30 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import axios from 'axios';
 import { API_URL } from '../constants';
+import React from 'react';
+import { Medication } from '../models/Medication';
 
-const NewMedicationForm = ({ medication, resetState, toggle }) => {
+interface NewMedicationFormProps {
+  resetState: () => void;
+  toggle: () => void;
+  medication?: Medication | null;
+}
+
+interface NewMedicationFormState {
+  id: number | null;
+  name: string;
+  classification: string;
+  implications: string;
+  dose: string;
+  route: string;
+  frequency: string;
+}
+
+const NewMedicationForm = ({ medication, resetState, toggle } : NewMedicationFormProps) => {
     // State to handle form fields
-    const [formData, setFormData] = useState({
-      id: undefined,
+    const [formData, setFormData] = useState<NewMedicationFormState>({
+      id: null,
       name: '',
       classification: '',
       implications: '',
@@ -17,14 +35,14 @@ const NewMedicationForm = ({ medication, resetState, toggle }) => {
 
     // Initialize form data if editing a medication
     useEffect(() => {
-      if (medication && Object.keys(medication).length > 0) {
+      if (medication) {
         const { id, name, classification, implications, dose, route, frequency } = medication;
         setFormData({ id, name, classification, implications, dose, route, frequency });
       }
     }, [medication]);
 
     // Handle input change
-    const onChange = (e) => {
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.target;
       setFormData((prevData) => ({
         ...prevData,
@@ -33,7 +51,7 @@ const NewMedicationForm = ({ medication, resetState, toggle }) => {
     };
 
     // Create new medication (POST request)
-    const createMedication = (e) => {
+    const createMedication = (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
     
       // Remove 'id' field if it exists in formData, since it's handled by Django
@@ -45,10 +63,13 @@ const NewMedicationForm = ({ medication, resetState, toggle }) => {
           resetState();
           toggle();
         })
+        .catch(error => {
+          console.error('Error during POST request', error);
+        })
     };
 
     // Edit existing medication (PUT request)
-      const editMedication = (e) => {
+      const editMedication = (e: FormEvent<HTMLFormElement>) => {
               e.preventDefault();
 
               // Ensure `id` exists before proceeding with the PUT request
@@ -69,9 +90,10 @@ const NewMedicationForm = ({ medication, resetState, toggle }) => {
     };
 
     // Helper function to handle empty values
-    const defaultIfEmpty = (value) => (value === undefined || value === null ? '' : value);
+    const defaultIfEmpty = (value: string | undefined | null): string =>
+      value === undefined || value === null ? '' : value;
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
       // If there's an id, it means we're editing an existing medication
       if (formData.id) {
           editMedication(e);
@@ -85,6 +107,7 @@ const NewMedicationForm = ({ medication, resetState, toggle }) => {
         <FormGroup>
           <Label for="name">Name:</Label>
           <Input
+            id='name'
             type="text"
             name="name"
             onChange={onChange}
@@ -95,6 +118,7 @@ const NewMedicationForm = ({ medication, resetState, toggle }) => {
         <FormGroup>
           <Label for="classification">Classification:</Label>
           <Input
+            id='classification'
             type="text"
             name="classification"
             onChange={onChange}
@@ -105,6 +129,7 @@ const NewMedicationForm = ({ medication, resetState, toggle }) => {
         <FormGroup>
           <Label for="implications">Implications:</Label>
           <Input
+            id='implications'
             type="text"
             name="implications"
             onChange={onChange}
@@ -115,6 +140,7 @@ const NewMedicationForm = ({ medication, resetState, toggle }) => {
         <FormGroup>
           <Label for="dose">Dose:</Label>
           <Input
+            id='dose'
             type="text"
             name="dose"
             onChange={onChange}
@@ -125,6 +151,7 @@ const NewMedicationForm = ({ medication, resetState, toggle }) => {
         <FormGroup>
           <Label for="route">Route:</Label>
           <Input
+            id='route'
             type="text"
             name="route"
             onChange={onChange}
@@ -135,6 +162,7 @@ const NewMedicationForm = ({ medication, resetState, toggle }) => {
         <FormGroup>
           <Label for="frequency">Frequency:</Label>
           <Input
+            id='frequency'
             type="text"
             name="frequency"
             onChange={onChange}
