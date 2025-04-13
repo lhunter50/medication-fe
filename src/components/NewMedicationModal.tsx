@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import NewMedicationForm from "./NewMedicationForm";
-import React from "react";
 import { Medication } from "../models/Medication";
 
 interface NewMedicationModalProps {

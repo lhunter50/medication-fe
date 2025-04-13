@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Col, Container, Row, Spinner } from 'reactstrap';
 import MedicationList from './MedicationList';
 import NewMedicationModal from './NewMedicationModal';
 import axios from 'axios';
 import { API_URL } from '../constants';
 import { Medication } from '../models/Medication';
-import React from 'react';
 
 const Home = () => {
 

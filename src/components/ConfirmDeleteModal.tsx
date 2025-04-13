@@ -1,6 +1,5 @@
 import React, { Fragment, useState,  } from 'react'
 import { Modal, ModalHeader, ModalFooter, Button } from 'reactstrap'
-import { Medication } from '../models/Medication'
 
 import axios from 'axios'
 import { API_URL } from '../constants'
