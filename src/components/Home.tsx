@@ -4,20 +4,8 @@ import MedicationList from './MedicationList';
 import NewMedicationModal from './NewMedicationModal';
 import axios from 'axios';
 import { API_URL } from '../constants';
+import { Medication } from '../models/Medication';
 import React from 'react';
-
-// Defining the Medication type based on my data structure.
-interface Medication {
-    id: number;
-    name: string;
-    classification: string;
-    intention: string;
-    implications: string;
-    dose: string;
-    route: string;
-    frequency: string;
-    [key:string]: any;
-}   
 
 const Home = () => {
 
