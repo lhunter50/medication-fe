@@ -51,6 +51,7 @@ return (
                             />
                             <ConfirmDeleteModal 
                                 id={medication.id}
+                                name={medication.name}
                                 resetState={resetState}
                             />
 
